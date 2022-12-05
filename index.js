@@ -31,7 +31,7 @@ db.connect((err) => {
 app.get('/users', (req, res) => {
     db.query('SELECT * FROM utilisateurs', (err, result) => {
         if (err) throw err;
-        console.log(result);
+        // console.log(result);
         res.send(result);
     })
 })
