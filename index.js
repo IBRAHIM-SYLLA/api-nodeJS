@@ -7,7 +7,6 @@ var usersRouter = require('./routeur/users.js');
 
 app.use('/', usersRouter);
 
-app.use(express.json());
 
 app.listen(3000);
 

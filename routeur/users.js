@@ -1,4 +1,11 @@
 var express = require('express');
+
+var app = express()
+
+const jwt = require('jsonwebtoken');
+
+app.use(express.json());
+
 var router = express.Router();
 
 router.post("/login", function(req,res){
