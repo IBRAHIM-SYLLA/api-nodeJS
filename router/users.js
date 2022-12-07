@@ -3,6 +3,9 @@ var express = require('express');
 var app = express()
 
 const jwt = require('jsonwebtoken');
+const UserController = require('../Controllers/usersController');
+
+const user = new UserController
 
 app.use(express.json());
 
@@ -18,10 +21,7 @@ router.post("/register", (req,res) => {
     res.send('On sinscrit...')
 });
 
-router.get("/allUsers", (req,res) => {
-    // recup all Users
-    res.send('On recup tout les users...')
-});
+router.get("/allUsers", user.getAllUsers);
 
 router.get("/:id", (req,res) => {
     // recup One User
