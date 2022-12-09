@@ -3,7 +3,7 @@ const db = require('../config/database');
 module.exports = {
   create: (data, callBack) => {
     db.query(
-      `insert into utilisateurs(email, password, roles, firstname, lastname, created_at) values(?,?,'[]',?,?,NOW())`,
+      `INSERT INTO utilisateurs(email, password, roles, firstname, lastname, created_at) VALUES(?,?,'[]',?,?,NOW())`,
       [
         data.email,
         data.password,
@@ -20,7 +20,7 @@ module.exports = {
   },
   getUserByUserEmail: (email, callBack) => {
     db.query(
-      `select * from utilisateurs where email = ?`,
+      `SELECT * FROM utilisateurs WHERE email = ?`,
       [email],
       (error, results, fields) => {
         if (error) {
@@ -32,7 +32,7 @@ module.exports = {
   },
   getUserByUserId: (id, callBack) => {
     db.query(
-      `select id, email, firstname, lastname from utilisateurs where id = ?`,
+      `SELECT id, email, firstname, lastname FROM utilisateurs WHERE id = ?`,
       [id],
       (error, results, fields) => {
         if (error) {
@@ -44,7 +44,7 @@ module.exports = {
   },
   getUsers: callBack => {
     db.query(
-      `select id, email, firstname, lastname from utilisateurs`,
+      `SELECT id, email, firstname, lastname FROM utilisateurs`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -56,7 +56,7 @@ module.exports = {
   },
   updateUser: (data, callBack) => {
     db.query(
-      `update utilisateurs set email=?, password=?, firstname=?, lastname=? where id = ?`,
+      `UPDATE utilisateurs set email=?, password=?, firstname=?, lastname=? WHERE id = ?`,
       [
         data.first_name,
         data.last_name,
@@ -74,7 +74,7 @@ module.exports = {
   },
   deleteUser: (data, callBack) => {
     db.query(
-      `delete from utilisateurs where id = ?`,
+      `DELETE FROM utilisateurs WHERE id = ?`,
       [data.id],
       (error, results, fields) => {
         if (error) {
