@@ -1,51 +1,28 @@
 var express = require('express');
+var router = express.Router();
 
 var app = express()
 
-const jwt = require('jsonwebtoken');
-const UserController = require('../Controllers/usersController');
+const { checkToken } = require("../auth/tokenValidation");
 
-const user = new UserController
+const {
+  createUser,
+  login,
+  getUserByUserId,
+  getUsers,
+  updateUsers,
+  deleteUser
+} = require("../Controllers/usersController");
+router.get("/", checkToken, getUsers);
 
-app.use(express.json());
+router.post("/register", createUser);
 
-var router = express.Router();
+router.get("/:id", checkToken, getUserByUserId);
 
-router.post("/login", function(req,res){
-    // se connecter
-    res.send('On se connecte...')
-});
+router.post("/login", login);
 
-router.post("/register", (req,res) => {
-    // s'inscrire
-    res.send('On sinscrit...')
-});
+router.patch("/update", checkToken, updateUsers);
 
-router.get("/allUsers", user.getAllUsers);
-
-router.get("/:id", (req,res) => {
-    // recup One User
-    res.send('On recup 1 user...')
-});
-
-router.get("/myProfil", (req,res) => {
-    // recup mes infos
-    res.send('je recup mon profil...')
-});
-
-router.put("/myProfil", (req,res) => {
-    // modifier ses infos
-    res.send('Je modifie mes infos...')
-});
-
-router.delete("/:id", (req,res) => {
-    // supprimer un user
-    res.send('On supprime 1 user...')
-});
-
-router.put("/:id", (req,res) => {
-    // modifier les infos d'un user
-    res.send('On modifie un user...')
-});
+router.delete("/", checkToken, deleteUser);
 
 module.exports = router;
