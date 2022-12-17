@@ -13,7 +13,7 @@ const {
   updateUsers,
   deleteUser
 } = require("../Controllers/usersController");
-router.get("/", checkToken, getUsers);
+router.get("/", getUsers);
 
 router.post("/register", createUser);
 

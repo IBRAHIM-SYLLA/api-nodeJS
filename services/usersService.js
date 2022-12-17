@@ -3,12 +3,13 @@ const db = require('../config/database');
 module.exports = {
   create: (data, callBack) => {
     db.query(
-      `INSERT INTO utilisateurs(email, password, roles, firstname, lastname, created_at) VALUES(?,?,'[]',?,?,NOW())`,
+      `INSERT INTO utilisateurs(email, password, roles, firstname, lastname, created_at, groupe_id) VALUES(?,?,'[]',?,?,NOW(),?)`,
       [
         data.email,
         data.password,
         data.firstname,
         data.lastname,
+        data.groupe_id,
       ],
       (error, results, fields) => {
         if (error) {
@@ -44,7 +45,7 @@ module.exports = {
   },
   getUsers: callBack => {
     db.query(
-      `SELECT id, email, firstname, lastname FROM utilisateurs`,
+      `SELECT * FROM utilisateurs`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -58,10 +59,10 @@ module.exports = {
     db.query(
       `UPDATE utilisateurs set email=?, password=?, firstname=?, lastname=? WHERE id = ?`,
       [
-        data.first_name,
-        data.last_name,
         data.email,
         data.password,
+        data.firstname,
+        data.lastname,
         data.id
       ],
       (error, results, fields) => {

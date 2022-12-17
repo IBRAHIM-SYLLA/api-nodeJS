@@ -48,7 +48,7 @@ const {
         const result = compareSync(body.password, results.password);
         if (result) {
           results.password = undefined;
-          const jsontoken = sign({ result: results }, "qwe1234", {
+          const jsontoken = sign({ result: results }, process.env.JWT_KEY, {
             expiresIn: "1h"
           });
           return res.json({

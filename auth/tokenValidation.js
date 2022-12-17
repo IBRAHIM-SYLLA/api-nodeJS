@@ -6,14 +6,14 @@ module.exports = {
       // Remove Bearer from string
       token = token.slice(7);
       jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
-        if (err) {
-          return res.json({
-            success: 0,
-            message: "Invalid Token..."
-          });
-        } else {
-          req.decoded = decoded;
-          next();
+        const verified = jwt.verify(token, process.env.JWT_KEY);
+        if(verified){
+            req.decoded = decoded;
+            next();
+            return res.send("Successfully Verified");
+        }else{
+            // Access Denied
+            return res.status(401).send(error);
         }
       });
     } else {
